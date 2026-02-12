@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Павел Юнусов — Senior Product Designer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- GLOBAL STYLES --- */
+        :root {
+            --bg-body: #F9F9F9;
+            --bg-card: #FFFFFF;
+            --text-main: #111111;
+            --text-sec: #666666;
+            --accent: #000000;
+            --border: #E5E5E5;
+            --container-width: 1400px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        ul { list-style: none; padding: 0; }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* NAVIGATION */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 900; font-size: 20px; letter-spacing: -0.5px; text-transform: uppercase; cursor: pointer; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-link { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-sec); cursor: pointer; }
+        .nav-link:hover, .nav-link.active { color: var(--text-main); }
+
+        /* PAGE TRANSITIONS */
+        .page-section { display: none; padding-top: 120px; padding-bottom: 100px; animation: fadeIn 0.5s ease; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HERO */
+        .hero { padding: 80px 0 80px; }
+        .hero h1 { font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 30px; letter-spacing: -2px; }
+        .hero p { font-size: 24px; color: var(--text-sec); max-width: 800px; margin-bottom: 40px; }
+        .hero-tags { display: flex; gap: 15px; flex-wrap: wrap; }
+        .tag { padding: 8px 16px; border: 1px solid var(--border); border-radius: 100px; font-size: 14px; font-weight: 600; background: #fff; }
+
+        /* PROJECTS GRID */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; margin-top: 60px; }
+        .project-card { background: var(--bg-card); border: 1px solid var(--border); overflow: hidden; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .card-image { width: 100%; height: 320px; object-fit: cover; background-color: #eee; border-bottom: 1px solid var(--border); }
+        .card-info { padding: 30px; flex-grow: 1; }
+        .card-category { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sec); margin-bottom: 10px; display: block; }
+        .card-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+        .card-desc { font-size: 16px; color: var(--text-sec); }
+
+        /* CASE STUDY */
+        .case-header { max-width: 900px; margin-bottom: 60px; }
+        .case-title { font-size: 56px; font-weight: 800; margin-bottom: 20px; letter-spacing: -1.5px; line-height: 1.1; }
+        .case-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 60px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 30px 0; }
+        .meta-item h4 { font-size: 12px; text-transform: uppercase; color: var(--text-sec); margin-bottom: 5px; font-weight: 600; letter-spacing: 0.5px; }
+        .meta-item p { font-size: 16px; font-weight: 600; }
+        
+        .case-content { display: grid; grid-template-columns: 1fr; gap: 100px; }
+        .content-block { display: grid; grid-template-columns: 300px 1fr; gap: 60px; }
+        .block-title { font-size: 24px; font-weight: 700; line-height: 1.3; }
+        .block-text { font-size: 18px; color: #333; line-height: 1.8; }
+        .block-text p { margin-bottom: 20px; }
+        .block-text ul { list-style: disc; padding-left: 20px; margin-bottom: 20px; }
+        .block-text li { margin-bottom: 10px; }
+        
+        .block-text h3 { font-size: 18px; font-weight: 700; margin-top: 20px; margin-bottom: 10px; }
+
+        .full-width-image { width: 100%; height: auto; border-radius: 4px; background: #eee; display: block; border: 1px solid var(--border); }
+        .grid-images-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; margin-bottom: 40px; cursor: pointer; color: var(--text-sec); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .back-btn:hover { color: var(--accent); }
+
+        /* RESUME */
+        .resume-grid { display: grid; grid-template-columns: 320px 1fr; gap: 80px; }
+        .about-photo { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; margin-bottom: 40px; border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background-color: #eee; }
+        .sidebar-block { margin-bottom: 50px; }
+        .sidebar-block h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sec); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .sidebar-info p { margin-bottom: 10px; font-size: 15px; color: var(--text-main); }
+        .sidebar-info a { text-decoration: underline; }
+        .skill-group { margin-bottom: 25px; }
+        .skill-group-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+        .skill-group-text { font-size: 14px; color: var(--text-sec); line-height: 1.6; }
+        .edu-item { margin-bottom: 20px; }
+        .edu-year { font-weight: 700; font-size: 14px; }
+        .edu-desc { font-size: 14px; color: var(--text-sec); }
+
+        .resume-section { margin-bottom: 60px; }
+        .resume-section-title { font-size: 32px; font-weight: 800; margin-bottom: 40px; }
+        .summary-text { font-size: 18px; line-height: 1.8; color: #444; }
+        .job-item { position: relative; padding-left: 30px; border-left: 2px solid var(--border); padding-bottom: 50px; }
+        .job-item:last-child { border-left: 2px solid transparent; }
+        .job-item::before { content: ''; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; background: #000; border-radius: 50%; }
+        .job-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 8px; }
+        .job-title { font-size: 22px; font-weight: 700; color: var(--text-main); }
+        .job-date { font-size: 14px; font-weight: 600; color: var(--text-sec); background: #eee; padding: 4px 8px; border-radius: 4px; }
+        .job-company { font-size: 16px; font-weight: 600; color: var(--text-sec); margin-bottom: 15px; display: block; }
+        .job-details ul { list-style: none; padding: 0; }
+        .job-details li { position: relative; padding-left: 20px; margin-bottom: 10px; font-size: 16px; color: #333; }
+        .job-details li::before { content: "•"; position: absolute; left: 0; color: #000; font-weight: bold; }
+
+        /* FOOTER */
+        footer { background: #111; color: #fff; padding: 80px 0; margin-top: 100px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-links a { display: block; margin-bottom: 10px; color: #999; }
+        .footer-links a:hover { color: #fff; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .content-block, .resume-grid { grid-template-columns: 1fr; gap: 40px; }
+            .case-meta { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .hero h1 { font-size: 42px; }
+            .grid-images-2 { grid-template-columns: 1fr; }
+            .job-header { flex-direction: column; gap: 5px; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <div class="logo" onclick="showPage('home')">PAVEL YUNUSOV</div>
+            <div class="nav-links">
+                <div class="nav-link" onclick="showPage('home')">Проекты</div>
+                <div class="nav-link" onclick="showPage('about')">Резюме</div>
+                <div class="nav-link" onclick="window.scrollTo(0, document.body.scrollHeight)">Контакты</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- === PAGE: HOME (PROJECTS GRID) === -->
+    <section id="home" class="page-section active">
+        <div class="container">
+            <!-- Hero -->
+            <div class="hero">
+                <h1>Создаю сложные Enterprise<br>и B2B системы.</h1>
+                <p>Senior Product Designer с 15-летним опытом. Превращаю сложную бизнес-логику в интуитивные интерфейсы. Специализация: SaaS, IoT, Data Viz, Design Systems.</p>
+                <div class="hero-tags">
+                    <span class="tag">UX/UI</span>
+                    <span class="tag">Product Design</span>
+                    <span class="tag">Industrial Design</span>
+                    <span class="tag">Team Lead</span>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="projects-grid">
+                
+                <!-- Project 1 -->
+                <div class="project-card" onclick="showPage('project-cursor')">
+                    <img src="assets/cursor_thumb.jpg" class="card-image" alt="Cursor">
+                    <div class="card-info">
+                        <span class="card-category">Enterprise / Product Design</span>
+                        <h3 class="card-title">Курсор</h3>
+                        <p class="card-desc">Интеллектуальный поиск и управление знаниями. Коробочное решение для Газпром и Полюс Золото.</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card" onclick="showPage('project-consul')">
+                    <img src="assets/consul_thumb.jpg" class="card-image" alt="Consul">
+                    <div class="card-info">
+                        <span class="card-category">R&D / SaaS</span>
+                        <h3 class="card-title">Consul</h3>
+                        <p class="card-desc">Платформа для анализа рисков и комплаенса. Bring Your Own Data концепция.</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card" onclick="showPage('project-itslab')">
+                    <img src="assets/itslab_thumb.jpg" class="card-image" alt="ITSLAB">
+                    <div class="card-info">
+                        <span class="card-category">IoT / Smart City</span>
+                        <h3 class="card-title">ITSLAB</h3>
+                        <p class="card-desc">Интерфейс управления умными перекрестками для Smart City.</p>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card" onclick="showPage('project-graphic')">
+                    <img src="assets/graphic_thumb.jpg" class="card-image" alt="Graphic">
+                    <div class="card-info">
+                        <span class="card-category">Graphic Design / 3D</span>
+                        <h3 class="card-title">Брендинг и Упаковка</h3>
+                        <p class="card-desc">Коллекция проектов: Lamerum, Лето Близко, Ambassador. Полный цикл визуализации.</p>
+                    </div>
+                </div>
+
+                <!-- Other Projects List -->
+                <div class="project-card" style="background: #111; color: #fff; cursor: default;">
+                    <div class="card-info" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                        <h3 class="card-title" style="margin-bottom: 20px;">Другие проекты</h3>
+                        <ul style="opacity: 0.8; font-size: 14px; line-height: 1.8;">
+                            <li>• Курсор 2.0 (Redesign)</li>
+                            <li>• ЕРОТ (Минцифры)</li>
+                            <li>• Демо-стенд «Сравнитель»</li>
+                            <li>• Contract (Siemens/Sibur)</li>
+                            <li>• ЦНМД и СЭД (Газпром Нефть)</li>
+                            <li>• РФФИ Граф</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- === PAGE: PROJECT CURSOR === -->
+    <section id="project-cursor" class="page-section">
+        <div class="container">
+            <div class="back-btn" onclick="showPage('home')">← Назад к проектам</div>
+            
+            <div class="case-header">
+                <h1 class="case-title">Cursor: Экосистема интеллектуального поиска</h1>
+                <p style="font-size: 24px; color: #666;">Экосистема интеллектуального поиска и No-code конструктор для Enterprise</p>
+            </div>
+
+            <div class="case-meta">
+                <div class="meta-item"><h4>Роль</h4><p>Lead Product Designer (Full Ownership)</p></div>
+                <div class="meta-item"><h4>Срок</h4><p>5 лет</p></div>
+                <div class="meta-item"><h4>Платформа</h4><p>Web (Desktop/Tablet)</p></div>
+                <div class="meta-item"><h4>Стек</h4><p>Figma, Complex Prototyping, Design Systems</p></div>
+            </div>
+
+            <img src="assets/cursor_hero.jpg" class="full-width-image" alt="Hero Image">
+
+            <div class="case-content">
+                <!-- 1. Контекст и Задача -->
+                <div class="content-block">
+                    <div class="block-title">1. Контекст и Задача (The Context)</div>
+                    <div class="block-text">
+                        <p><strong>Продукт:</strong> Cursor — это коробочное B2B-решение для интеллектуального анализа и хранения документов. Система работает с огромными массивами данных (от договоров до чертежей) и внедряется в крупнейшие компании РФ (Газпром Нефть, ВНП, Сибур, Полюс Золото).</p>
+                        
+                        <p><strong>Функциональный периметр:</strong><br>За 5 лет проект вырос в масштабную экосистему, включающую более 10 крупных модулей:</p>
+                        <ul>
+                            <li><strong>Умный поиск:</strong> Поиск по атрибутам, полному тексту, семантике и OCR.</li>
+                            <li><strong>Аналитика и связи:</strong> Графический поиск (Knowledge Graph), реестры, сравнение версий документов (Redline), антиплагиат.</li>
+                            <li><strong>Конструкторы (No-code):</strong> Модели данных, жизненного цикла документов (BPM), UI-карточек и форм.</li>
+                            <li><strong>Администрирование:</strong> Разметка данных для ML-обучения, настройки иерархий и прав доступа, темизация.</li>
+                        </ul>
+
+                        <p><strong>Бизнес-вызов:</strong><br>Изначально продукт был мощным, но сложным в кастомизации. Каждое внедрение требовало участия разработчиков, чтобы «подпилить» систему под процессы конкретного банка или завода.<br>Задача состояла в том, чтобы превратить монолитный продукт в гибкий No-code конструктор, который аналитики или менеджеры могли бы настраивать сами.</p>
+
+                        <p><strong>Стратегия развития (Client-to-Core):</strong><br>Работа строилась по циклу: Потребность клиента → Кастомная фича → Часть «Коробки».<br>Например, модуль «Дерево иерархии» изначально проектировался под специфические требования ВНП. Однако я заложил в архитектуру универсальные паттерны, что позволило нам впоследствии забрать этот модуль в основное коробочное решение и продавать другим клиентам без доработок.</p>
+
+                        <p><strong>Моя роль:</strong><br>Я был единственным дизайнером на старте и вырос до Lead Product Designer. Отвечал за весь цикл: от архитектуры сложных модулей до создания и поддержки дизайн-системы.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Конфликт -->
+                <div class="content-block">
+                    <div class="block-title">2. Главный конфликт: «Вау-эффект» против Универсальности</div>
+                    <div class="block-text">
+                        <p>Одной из сложнейших стратегических задач было найти баланс между требованиями продаж («сделайте красиво, чтобы продать») и реальностью внедрения («система должна быть универсальной тетрадкой в клетку»).<br>Мы продавали «коробку», которая должна встраиваться в экосистемы клиентов с уже существующими гайдами (как у Газпром Нефти). Сделав слишком яркий или специфичный UI, мы бы сломали возможность интеграции.</p>
+                        <p><strong>Решение:</strong><br>Я спроектировал нейтральный, «тихий» интерфейс (White Label подход), который работает как чистый холст. Вся выразительность была перенесена в контент и структуру, которую настраивает сам пользователь. Это позволило сократить споры о «вкусовщине» и сосредоточиться на функциональности.</p>
+                    </div>
+                </div>
+
+                <!-- 3. Ключевые решения -->
+                <div class="content-block">
+                    <div class="block-title">3. Ключевые решения (Key Solutions)</div>
+                    <div class="block-text">
+                        
+                        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 15px;">A. Поисковый движок и Граф связей (Knowledge Graph)</h3>
+                        <p>Проблема Enterprise-поиска не в том, чтобы найти документ по названию, а в том, чтобы найти смысл.<br>Помимо фасетного поиска (фильтры по атрибутам), мы внедрили семантический поиск и визуализацию связей.</p>
+                        <ul>
+                            <li><strong>Графический поиск:</strong> Пользователь видит не просто список, а граф. Если мы ищем «Договор на буровую установку», система визуально показывает связи с документами «Акт приемки», «Спецификация деталей» и «Ответственный инженер».</li>
+                            <li><strong>UX-деталь:</strong> Реализован бесшовный переход от Графа к списку и превью документа, чтобы не терять контекст.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="assets/cursor_graph.jpg" class="full-width-image" alt="Graph Search">
+
+                <div class="content-block">
+                    <div class="block-title">B. Конструктор Модели Данных (Data Model Builder)</div>
+                    <div class="block-text">
+                        <p>Это «продукт внутри продукта». Нам нужно было дать пользователю (часто не технарю) возможность проектировать базы данных. </p>
+                        <ul>
+                            <li><strong>Проблема:</strong> Как объяснить менеджеру концепцию связей «один-ко-многим» или типы данных без кода?</li>
+                            <li><strong>Решение:</strong> Визуальный редактор на нодах. Пользователь перетаскивает сущности, соединяет их связями и настраивает атрибуты в боковой панели. Вместо написания SQL-запросов — drag-n-drop интерфейс.</li>
+                            <li><strong>Результат:</strong> Сложная настройка, которая раньше делалась разработчиками через код, теперь выполняется аналитиками через UI.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="assets/cursor_datamodel.jpg" class="full-width-image" alt="Data Model Builder">
+
+                <div class="content-block">
+                    <div class="block-title">C. UI Builder: «Figma» для менеджеров</div>
+                    <div class="block-text">
+                        <p>Самая амбициозная часть проекта. Мы создали инструмент, позволяющий собирать карточки документов из виджетов.</p>
+                        <ul>
+                            <li><strong>Челлендж:</strong> Сделать гибко, но чтобы пользователь не «сломал» верстку.</li>
+                            <li><strong>Решение:</strong> Жесткая сетка (Grid) с магнитным прилипанием. Я вдохновлялся принципами работы Figma (Auto Layout), но упростил их до уровня шаблонной работы. Пользователь создает шаблон, копирует его и наполняет нужными виджетами (превью, поля, история версий).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="assets/cursor_uibuilder.jpg" class="full-width-image" alt="UI Builder">
+
+                <!-- 4. Дизайн-система -->
+                <div class="content-block">
+                    <div class="block-title">4. Дизайн-система и масштабирование</div>
+                    <div class="block-text">
+                        <p>За 5 лет проект оброс 1000+ экранами. Поддерживать консистентность в одиночку, а затем малой командой, было бы невозможно без системы.</p>
+                        <ul>
+                            <li><strong>Атомарный подход:</strong> От базовых токенов до сложных организмов (виджеты конструктора).</li>
+                            <li><strong>Токенизация:</strong> Перед моим уходом я инициировал переход на дизайн-токены. Это решило проблему темизации — теперь перекрасить систему под брендбук клиента (например, в синий цвет Газпрома) можно автоматизированно, без перерисовки макетов.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="assets/cursor_ds.jpg" class="full-width-image" alt="Design System">
+
+                <!-- 5. Результаты -->
+                <div class="content-block">
+                    <div class="block-title">5. Результаты и Влияние (Impact)</div>
+                    <div class="block-text">
+                        <p>Поскольку проект Enterprise/On-premise, у нас нет доступа к пользовательским метрикам в реальном времени, но бизнес-результаты говорят сами за себя:</p>
+                        <ul>
+                            <li><strong>Time-to-market внедрения:</strong> Скорость адаптации «коробки» под нового клиента выросла примерно в 4 раза. Благодаря шаблонам и конструкторам, то, что раньше требовало кастомной разработки, теперь настраивается через UI.</li>
+                            <li><strong>Снижение нагрузки на саппорт:</strong> Визуальные конструкторы позволили клиентам самостоятельно менять процессы (например, логику согласования) без обращения в нашу техподдержку.</li>
+                            <li><strong>Успешные интеграции:</strong> Продукт успешно внедрен и кастомизирован под гигантов рынка (Газпром Нефть, ВНП, Сибур, Полюс Золото), став частью их внутренних экосистем.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === PAGE: PROJECT CONSUL === -->
+    <section id="project-consul" class="page-section">
+        <div class="container">
+            <div class="back-btn" onclick="showPage('home')">← Назад к проектам</div>
+            
+            <div class="case-header">
+                <h1 class="case-title">Consul: Risk Analysis</h1>
+                <p style="font-size: 24px; color: #666;">SaaS платформа для анализа юридических рисков и разметки документов.</p>
+            </div>
+
+            <div class="case-meta">
+                <div class="meta-item"><h4>Роль</h4><p>Designer & Analyst</p></div>
+                <div class="meta-item"><h4>Команда</h4><p>Микро-команда (3 чел)</p></div>
+                <div class="meta-item"><h4>Рынок</h4><p>Global / Foreign Market</p></div>
+                <div class="meta-item"><h4>Статус</h4><p>R&D / MVP</p></div>
+            </div>
+
+            <img src="assets/consul_hero.jpg" class="full-width-image" alt="Consul UI">
+
+            <div class="case-content">
+                <div class="content-block">
+                    <div class="block-title">Контекст и Роль</div>
+                    <div class="block-text">
+                        <p>Проект создавался с прицелом на зарубежный рынок. Основная идея: клиент загружает свою базу документов (Bring Your Own Data), а система проверяет их на риски.</p>
+                        <p><strong>Особенность:</strong> В проекте не было выделенного аналитика. Эту роль я взял на себя. Мне пришлось прорабатывать бизнес-требования, сценарии использования и логику работы ML-моделей вместе с разработчиком.</p>
+                    </div>
+                </div>
+
+                <img src="assets/consul_dashboard.jpg" class="full-width-image" alt="Consul Dashboard">
+
+                <div class="content-block">
+                    <div class="block-title">Функционал</div>
+                    <div class="block-text">
+                        <ul>
+                            <li><strong>Risk Highlighting:</strong> Система подсвечивает опасные формулировки в договорах (красным/желтым) и предлагает безопасные альтернативы.</li>
+                            <li><strong>Smart Labeling:</strong> Инструмент для ручной разметки документов пользователем для дообучения нейросети.</li>
+                            <li><strong>Comparison:</strong> Сравнение версий документа (Redline) для выявления несанкционированных правок.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="assets/consul_risks.jpg" class="full-width-image" alt="Consul Risk UI">
+
+                <div class="content-block">
+                    <div class="block-title">Результат</div>
+                    <div class="block-text">
+                        <p>Проект был полностью реализован технически и прошел внутреннее тестирование. Однако из-за геополитических изменений выход на зарубежный рынок был приостановлен.</p>
+                        <p>Тем не менее, Consul стал мощным R&D полигоном. Наработки по интерфейсу разметки и модуль загрузки файлов были переиспользованы в других коммерческих проектах компании, сэкономив месяцы разработки.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === PAGE: PROJECT ITSLAB === -->
+    <section id="project-itslab" class="page-section">
+        <div class="container">
+            <div class="back-btn" onclick="showPage('home')">← Назад к проектам</div>
+            
+            <div class="case-header">
+                <h1 class="case-title">ITSLAB: Интерфейс управления умными перекрестками</h1>
+                <p style="font-size: 24px; color: #666;">Интерфейс управления умными перекрестками для Smart City.</p>
+            </div>
+
+            <div class="case-meta">
+                <div class="meta-item"><h4>Роль</h4><p>Lead Product Designer & Analyst</p></div>
+                <div class="meta-item"><h4>Команда</h4><p>Agile-тройка (Designer, Dev, PM)</p></div>
+                <div class="meta-item"><h4>Сфера</h4><p>Smart City / IoT / GovTech</p></div>
+                <div class="meta-item"><h4>Платформа</h4><p>Desktop Dashboard (Web)</p></div>
+            </div>
+
+            <img src="assets/itslab_dashboard_cover.jpg" class="full-width-image" alt="Dashboard Cover">
+
+            <div class="case-content">
+                
+                <!-- 1. Контекст -->
+                <div class="content-block">
+                    <div class="block-title">1. Контекст и Задача</div>
+                    <div class="block-text">
+                        <p><strong>Продукт:</strong><br>Наш заказчик производит умные контроллеры для светофоров, которые считывают трафик в реальном времени. «Железо» работало и собирало данные, но инструмента для их чтения и управления не существовало.</p>
+                        <p><strong>Перед нами стояла двойная задача:</strong></p>
+                        <ul>
+                            <li><strong>Для бизнеса (Продажи):</strong> Создать эффектный визуальный инструмент, чтобы наглядно демонстрировать возможности системы мэрам и чиновникам.</li>
+                            <li><strong>Для города (Управление):</strong> Дать диспетчерам реальный пульт управления трафиком, который помогает снижать пробки здесь и сейчас.</li>
+                        </ul>
+                        <p><strong>Моя роль:</strong><br>Из-за специфики проекта я совмещал дизайн с продуктовой аналитикой: изучал параметры пропускной способности дорог, строил гипотезы визуализации и проверял их на данных с камер MVP-стенда (г. Хабаровск).</p>
+                    </div>
+                </div>
+
+                <img src="assets/itslab_process_architecture.jpg" class="full-width-image" alt="Process Architecture">
+
+                <!-- 2. Решение -->
+                <div class="content-block">
+                    <div class="block-title">2. Решение: Система детализации данных</div>
+                    <div class="block-text">
+                        <p>Главный вызов высоконагруженных интерфейсов — не утопить пользователя в цифрах. Заказчик хотел «видеть всё и сразу». Моим решением стало внедрение трехуровневой системы детализации.</p>
+                        
+                        <h3 style="font-size: 18px; font-weight: 700; margin-top: 20px;">Уровень 1: Обзор города (Карта)</h3>
+                        <p>Главный экран для оперативного мониторинга.<br><strong>Задача:</strong> Мгновенно подсветить аномалии. Где затор? Где авария?<br><strong>Решение:</strong> Мы использовали OpenStreetMap как подложку, но поверх наложили собственные тепловые слои. Цветовое кодирование (Зеленый/Желтый/Красный) позволяет оценить ситуацию за 3 секунды.<br><strong>Технология:</strong> Данные объединяются в кластеры при отдалении карты, чтобы интерфейс не превращался в кашу из иконок.</p>
+                    </div>
+                </div>
+
+                <img src="assets/itslab_map_zoom.jpg" class="full-width-image" alt="Map Zoom Levels">
+
+                <div class="content-block">
+                    <div class="block-title">Уровень 2: Цифровой двойник перекрестка</div>
+                    <div class="block-text">
+                        <p>Кликнув на проблемную точку, диспетчер попадает в детальную схему.</p>
+                        <ul>
+                            <li><strong>Визуализация:</strong> Мы не могли полагаться на обычные карты (там нет схем развязок и полос), поэтому отрисовывали схемы перекрестков сами.</li>
+                            <li><strong>Оптимизация производства:</strong> Чтобы не рисовать сотни перекрестков вручную, я разработал визуальный конструктор-шаблон. Разработчик получал инженерную схему и собирал перекресток из готовых блоков (полосы, светофоры, стоп-линии) за пару минут.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="assets/itslab_crossroad_builder.jpg" class="full-width-image" alt="Crossroad Builder">
+
+                <div class="content-block">
+                    <div class="block-title">Уровень 3: Глубокая аналитика</div>
+                    <div class="block-text">
+                        <p>Инструмент для пост-анализа и планирования.</p>
+                        <ul>
+                            <li><strong>Эффективность:</strong> Графики пропускной способности узла.</li>
+                            <li><strong>Экология:</strong> Расчет выбросов CO2 (на основе данных о пробках) — важный показатель для отчетов администрации.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="assets/itslab_analytics_charts.jpg" class="full-width-image" alt="Analytics Charts">
+
+                <!-- 3. Управление -->
+                <div class="content-block">
+                    <div class="block-title">3. Управление: Конфликт технологий и привычек</div>
+                    <div class="block-text">
+                        <p>Мы спроектировали интерфейс не только для мониторинга, но и для активного управления.</p>
+                        <ul>
+                            <li><strong>Сценарии:</strong> Возможность создавать шаблоны таймингов (например, «Утро рабочего дня» — зеленый длиннее в центр, «Вечер пятницы» — зеленый длиннее из центра).</li>
+                            <li><strong>Ручное управление:</strong> Возможность добавить/убавить секунды фазы светофора прямо с планшета.</li>
+                        </ul>
+                        <p><strong>Инсайт внедрения:</strong> Столкнулись с реальностью муниципальной работы: диспетчеры часто игнорировали прямые инструменты управления, действуя по старинке (телефонные звонки, бумажные приказы). Однако интерфейс спроектирован с заделом на будущее — архитектура готова к тому, чтобы решение о смене таймингов принимал ИИ, а человек лишь подтверждал сценарий одной кнопкой.</p>
+                    </div>
+                </div>
+
+                <img src="assets/itslab_control_ui.jpg" class="full-width-image" alt="Traffic Light Control">
+
+                <!-- 4. Передача -->
+                <div class="content-block">
+                    <div class="block-title">4. Передача и Адаптация</div>
+                    <div class="block-text">
+                        <p>Проект подразумевал продажу и внедрение в разные города (Нальчик и др.).</p>
+                        <ul>
+                            <li><strong>Брендирование (White Label):</strong> Разработана гибкая система темизации, позволяющая менять логотипы и цвета под фирменный стиль конкретного муниципалитета.</li>
+                            <li><strong>Документация:</strong> Подготовлен полный UI Kit и гайдлайны для передачи проекта локальным IT-командам заказчиков.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="assets/itslab_uikit_adaptation.jpg" class="full-width-image" alt="UI Kit Adaptation">
+
+                <!-- 5. Результаты -->
+                <div class="content-block">
+                    <div class="block-title">5. Результаты</div>
+                    <div class="block-text">
+                        <ul>
+                            <li><strong>Успешный запуск:</strong> Система прошла обкатку на реальном трафике, доказав возможность снижения пробок за счет микро-корректировок таймингов.</li>
+                            <li><strong>Продажи:</strong> Качественная визуализация данных стала ключевым аргументом в переговорах заказчика с администрациями городов.</li>
+                            <li><strong>Наследие:</strong> Созданный UI Kit с набором элементов (дорожные полосы, повороты, светофоры) позволил разработчикам самостоятельно отрисовывать схемы новых перекрестков, не отвлекая дизайнера на типовые задачи.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- === PAGE: GRAPHIC DESIGN === -->
+    <section id="project-graphic" class="page-section">
+        <div class="container">
+            <div class="back-btn" onclick="showPage('home')">← Назад к проектам</div>
+            
+            <div class="case-header">
+                <h1 class="case-title">Graphic & Packaging</h1>
+                <p style="font-size: 24px; color: #666;">Избранные проекты по брендингу и 3D визуализации.</p>
+            </div>
+
+            <!-- Lamerum -->
+            <div style="margin-bottom: 100px;">
+                <h2>01. Lamerum</h2>
+                <p style="color: #666; margin-bottom: 20px;">Омолаживающий крем премиум-сегмента.</p>
+                <div class="grid-images-2">
+                    <img src="assets/lamerum_1.jpg" class="full-width-image" alt="Lamerum 1">
+                    <img src="assets/lamerum_2.jpg" class="full-width-image" alt="Lamerum 2">
+                </div>
+                <p><strong>Сделано:</strong> Логотип, Айдентика, 3D моделирование упаковки, Рендер.</p>
+            </div>
+
+            <!-- Leto Blizko -->
+            <div style="margin-bottom: 100px;">
+                <h2>02. Лето Близко</h2>
+                <p style="color: #666; margin-bottom: 20px;">Линейка молочных продуктов для фитнес-аудитории.</p>
+                <div class="grid-images-2">
+                    <img src="assets/leto_1.jpg" class="full-width-image" alt="Leto 1">
+                    <img src="assets/leto_2.jpg" class="full-width-image" alt="Leto 2">
+                </div>
+                <p><strong>Сделано:</strong> Яркий брендинг, дизайн упаковки, визуализация линейки.</p>
+            </div>
+
+            <!-- Ambassador -->
+            <div>
+                <h2>03. Ambassador</h2>
+                <p style="color: #666; margin-bottom: 20px;">Кофейный бренд.</p>
+                <div class="grid-images-2">
+                    <img src="assets/ambassador_1.jpg" class="full-width-image" alt="Ambassador 1">
+                    <img src="assets/ambassador_2.jpg" class="full-width-image" alt="Ambassador 2">
+                </div>
+                <p><strong>Сделано:</strong> Редизайн упаковки, 3D моделирование, промо-материалы.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- === PAGE: ABOUT / RESUME === -->
+    <section id="about" class="page-section">
+        <div class="container">
+            <div class="case-header">
+                <h1 class="case-title">Резюме</h1>
+            </div>
+            
+            <div class="resume-grid">
+                <!-- Sidebar -->
+                <aside class="resume-sidebar">
+                    <img src="assets/photo.jpg" class="about-photo" alt="Pavel Yunusov">
+                    
+                    <div class="sidebar-block">
+                        <h3>Контакты</h3>
+                        <div class="sidebar-info">
+                            <p>Екатеринбург</p>
+                            <p><a href="tel:+79505419221">+7 (950) 541-92-21</a></p>
+                            <p><a href="mailto:afest17@yandex.ru">afest17@yandex.ru</a></p>
+                            <p><a href="https://t.me/Yunusov_Pavel" target="_blank">@Yunusov_Pavel</a></p>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <h3>Навыки</h3>
+                        <div class="skill-group">
+                            <div class="skill-group-title">Product & UX</div>
+                            <div class="skill-group-text">CJM, User Flow, Information Architecture, Design Systems, Data Viz, JTBD</div>
+                        </div>
+                        <div class="skill-group">
+                            <div class="skill-group-title">Инструменты</div>
+                            <div class="skill-group-text">Figma (Expert: Variables, Auto-layout), Adobe CC (Ps, Ai, Ae), Cinema 4D</div>
+                        </div>
+                        <div class="skill-group">
+                            <div class="skill-group-title">Management</div>
+                            <div class="skill-group-text">Team Lead (5+ чел), Hiring, Onboarding, Design Ops, Mentorship</div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <h3>Образование</h3>
+                        <div class="edu-item">
+                            <div class="edu-year">2017 — УрГАХУ</div>
+                            <div class="edu-desc">Магистр, Графический дизайн</div>
+                        </div>
+                        <div class="edu-item">
+                            <div class="edu-year">2015 — ХМИДПИ (УрГАХУ)</div>
+                            <div class="edu-desc">Бакалавр, Промышленный дизайн</div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Resume Content -->
+                <div class="resume-content">
+                    
+                    <div class="resume-section">
+                        <h2 class="resume-section-title">Обо мне</h2>
+                        <div class="summary-text">
+                            <p>Senior Product Designer с 15-летним опытом в индустрии. Специализируюсь на проектировании сложных Enterpriseсистем, В2В-сервисов и построении дизайн-процессов. Прошел путь от графического дизайнера до руководства дизайн-командой. Имею профильное образование в области графического и промышленного дизайна.</p>
+                            <p>Сейчас совмещаю работу над продуктовыми задачами с преподаванием и менторством.</p>
+                            <p>Ищу роль Старшего / Ведущего дизайнера или Руководителя направления в продуктовой компании.</p>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <h2 class="resume-section-title">Опыт работы</h2>
+
+                        <!-- Job 1 -->
+                        <div class="job-item">
+                            <div class="job-header">
+                                <h3 class="job-title">Independent Consultant / Design Educator</h3>
+                                <span class="job-date">Сен 2025 — Наст. время</span>
+                            </div>
+                            <span class="job-company">Freelance / EdTech</span>
+                            <div class="job-details">
+                                <p style="margin-bottom:10px; font-style: italic;">Продуктовый консалтинг, обучение и менторство.</p>
+                                <ul>
+                                    <li><strong>Преподавание:</strong> Веду курс «Дизайн интерфейсов» в IT-колледже. Разрабатываю учебную программу, лекции и воркшопы.</li>
+                                    <li><strong>Product Design (Freelance):</strong> Веду разработку мобильного приложения для бронирования отелей. Отвечаю за полный цикл: от UX-исследований до финального UI и передачи в разработку.</li>
+                                    <li><strong>Менторство:</strong> Консультирую Junior/Middle дизайнеров по карьерному треку, провожу ревью портфолио и хард-скиллов.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Job 2 -->
+                        <div class="job-item">
+                            <div class="job-header">
+                                <h3 class="job-title">Senior Product Designer / Head of Design</h3>
+                                <span class="job-date">Фев 2020 — Сен 2025</span>
+                            </div>
+                            <span class="job-company">Embedika</span>
+                            <div class="job-details">
+                                <p style="margin-bottom:10px; font-style: italic;">Система текстовой аналитики и корпоративного поиска (B2B/Enterprise).</p>
+                                <p><strong>Ключевые достижения:</strong></p>
+                                <ul>
+                                    <li>Спроектировал с нуля коробочное B2B-решение: продукт был успешно внедрен в компаниях Газпром, Сибур и Полюс Золото.</li>
+                                    <li>Внедрил единую дизайн-систему для экосистемы из 10+ продуктов, что привело к единому стандарту и ускорило процесс проектирования на 30%.</li>
+                                    <li>Построил дизайн-отдел: с нуля нанял команду (5 дизайнеров), внедрил систему грейдов, онбординга и регулярных дизайн-ревью.</li>
+                                </ul>
+                                <p style="margin-top:10px;"><strong>Обязанности:</strong></p>
+                                <ul>
+                                    <li>Руководство и развитие команды: Менторство, проведение Performance Review, развитие культуры дизайна и управление компетенциями сотрудников.</li>
+                                    <li>Операционное управление (Design Ops): Выстраивание процессов взаимодействия с разработкой и продуктом, планирование ресурсов и приоритизация бэклога.</li>
+                                    <li>Арт-дирекшн и проектирование: Контроль качества решений (Design QA), проектирование архитектуры сложных модулей и развитие дизайн-стратегии продукта.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Job 3 -->
+                        <div class="job-item">
+                            <div class="job-header">
+                                <h3 class="job-title">Старший наставник (Part-time)</h3>
+                                <span class="job-date">Май 2020 — Фев 2024</span>
+                            </div>
+                            <span class="job-company">Яндекс Практикум</span>
+                            <div class="job-details">
+                                <p style="margin-bottom:10px; font-style: italic;">Факультет дизайна интерфейсов. Курсы: UX/UI, Граф. дизайн, Коммуникационный дизайн.</p>
+                                <p><strong>Ключевые достижения:</strong></p>
+                                <ul>
+                                    <li>Оптимизировал онбординг наставников: сократил время ввода сотрудника за счет создания базы знаний.</li>
+                                    <li>Повысил CSI (индекс удовлетворенности) студентов благодаря новым стандартам вебинаров.</li>
+                                </ul>
+                                <p style="margin-top:10px;"><strong>Обязанности:</strong></p>
+                                <ul>
+                                    <li>Менторство студентов (Design Review).</li>
+                                    <li>Найм, онбординг и менторство команды наставников.</li>
+                                    <li>Проведение вебинаров и воркшопов, проверка дипломных проектов.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Job 4 -->
+                        <div class="job-item">
+                            <div class="job-header">
+                                <h3 class="job-title">UX/UI Designer</h3>
+                                <span class="job-date">Июль 2019 — Фев 2020</span>
+                            </div>
+                            <span class="job-company">NAUMEN</span>
+                            <div class="job-details">
+                                <p style="margin-bottom:10px; font-style: italic;">Информационные системы управления, Service Desk.</p>
+                                <ul>
+                                    <li>Проектировал интерфейсы для крупных корпоративных систем управления (B2B).</li>
+                                    <li>Взаимодействовал с аналитиками для перевода бизнес требований в интерфейсные решения.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Job 5 -->
+                        <div class="job-item">
+                            <div class="job-header">
+                                <h3 class="job-title">Designer</h3>
+                                <span class="job-date">Июль 2017 — Июнь 2019</span>
+                            </div>
+                            <span class="job-company">РА Гордость</span>
+                            <div class="job-details">
+                                <p style="margin-bottom:10px; font-style: italic;">Брендинг и маркетинг.</p>
+                                <ul>
+                                    <li>Разрабатывал визуальные концепции, выполнял задачи по промышленному дизайну, 3D и анимации (Miratorg, PepsiCo, Efes).</li>
+                                    <li>Выступал в роли ключевого мультидисциплинарного специалиста (Generalist), самостоятельно закрывая задачи на стыке разных направлений.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="font-size: 14px; color: #666; font-style: italic; margin-top: 20px;">
+                            (Предыдущий опыт 2010–2017: Графический дизайн, Промышленный дизайн, 3D-моделирование, Анимация, PM — доступен по запросу)
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <div class="logo" style="margin-bottom: 20px;">PAVEL YUNUSOV</div>
+                <p style="color: #666; font-size: 14px;">© 2026. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://www.figma.com" target="_blank">Figma Portfolio</a>
+                <a href="https://www.behance.net/Pavel_Yunusov" target="_blank">Behance</a>
+                <a href="https://t.me/Yunusov_Pavel" target="_blank">Telegram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT ВНУТРИ ФАЙЛА -->
+    <script>
+        function showPage(pageId) {
+            // 1. Скрываем все секции
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 2. Показываем нужную секцию
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo(0, 0); // Прокрутка вверх
+            }
+
+            // 3. Обновляем активную ссылку в меню (визуально)
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => link.classList.remove('active'));
+        }
+    </script>
+
+</body>
+</html>
