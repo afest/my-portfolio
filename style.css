@@ -371,6 +371,37 @@ ul {
 .case-header {
     max-width: 900px;
     margin-bottom: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--text-main);
+    color: var(--bg-card);
+    padding: 12px 24px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: 0.2s;
+    border: 1px solid var(--text-main);
+}
+
+.download-btn:hover {
+    background: transparent;
+    color: var(--text-main);
+}
+
+.download-btn::before {
+    content: "↓";
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .case-title {

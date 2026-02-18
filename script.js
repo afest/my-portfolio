@@ -29,6 +29,11 @@ function showPage(pageId) {
 
     // Close mobile menu if open
     closeMobileMenu();
+
+    // Track page view in Yandex.Metrika
+    if (typeof ym === 'function') {
+        ym(106890162, 'hit', window.location.href);
+    }
 }
 
 // --- PROJECT COUNTERS ---
